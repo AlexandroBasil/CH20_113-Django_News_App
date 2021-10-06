@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}The Blog Posts{% endblock title %}
+
+
+{% block content %}
+    <h1> The Details </h1>
+    <hr>
+    <h2>{{ article.title }}</h2>
+    <img src="{{ article.image }}">
+    <p>By {{ article.author }}</p>
+    <p>{{ article.body }}</p>
+    <a href="{% url 'article_update' article.pk %}" class="btn btn-primary">Edit</a>
+    <a href="{% url 'article_delete' article.pk %}" class="btn btn-danger">Delete</a>
+
+{% endblock content %}

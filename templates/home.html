@@ -5,6 +5,29 @@
 
 {% block content %}
     <h1>Welcome to the News that Brews</h1>
+    
+    {% for article in article_list %}    
+        <div class="card text-center">
+            <div class="card-header" style="background-color: #004D74">
+                <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: #EFEFDD" href="{% url 'article_detail' article.pk %}">View Post</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: #EFEFDD" href="{% url 'article_update' article.pk %}">Edit</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: #EFEFDD" href="{% url 'article_delete' article.pk %}">Delete</a>
+                    </li>
+                </ul>
+            </div>
 
-    <h5>Click</h5>
+            <div class="card-body" style="background-color: #97AFB9">
+                <h3 class="card-title" >{{ article.title }}</h3>
+                <h6 class="card-subtitle mb-2 text-muted">by {{ article.author }}</h6>
+                <p class="card-text">{{ article.body }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</ul>
 {% endblock content %}

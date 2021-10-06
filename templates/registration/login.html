@@ -5,9 +5,26 @@
 
 {% block content %}
     <h1>Log In</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-primary">Log In</button>
-    </form>
+    
+    <br>
+
+    <body class="body-login text-center">
+        <main class="form-signin">
+            <form method="POST">
+                {% csrf_token %}
+                <h1 class="h3 mb-3 fw-normal">Please Login In</h1>
+            
+                <div class="form-floating">
+                    <input type="text" name="username" id="id_username" class="form-control" id="floatingInput" placeholder="Username">
+                    <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" name="password" id="id_password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+            
+                <button class="w-100 btn btn-lg btn-primary">Login</button>
+            </form>
+        </main>
+    </body>
 {% endblock content %}

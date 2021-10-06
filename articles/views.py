@@ -7,28 +7,48 @@ from django.views.generic.edit import (
     UpdateView,
     DeleteView
 )
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    UserPassesTestMixin
+)
 from django.urls.base import reverse_lazy
-from .models import Articles
+from .models import Article
+
 
 class ArticleListView(ListView):
-    model = Articles
+    model = Article
     template_name = "home.html"
 
 class ArticleDetailView(DetailView):
-    model = Articles
+    model = Article
     template_name = "article_detail.html"
 
-class ArticleCreateView(CreateView):
-    model = Articles
+class ArticleCreateView(LoginRequiredMixin, CreateView):
+    model = Article
     template_name = "article_create.html"
-    fields = ["title", "body", "author", "date"]
+    fields = ["title", "body", "image"]
 
-class ArticleUpdateView(UpdateView):
-    model = Articles
+    # def test_func(self):
+    #     return self.request.user ==
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class ArticleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Article
     template_name = "article_update.html"
-    fields = ["title", "body", "date"]
+    fields = ["title", "body"]
 
-class ArticleDeleteView(DeleteView):
-    model = Articles
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
+
+class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Article
     template_name = "article_delete.html"
     success_url = reverse_lazy("home")
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author == self.request.user
