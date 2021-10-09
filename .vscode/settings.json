@@ -4,6 +4,7 @@
         "apikey",
         "backends",
         "cokpw",
+        "nostatic",
         "pwghc",
         "sendgrid"
     ]
